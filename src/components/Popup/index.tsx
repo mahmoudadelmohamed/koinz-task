@@ -56,27 +56,29 @@ export const Popup: React.FC<PopupProps> = (props) => {
                             className={styles.add_edit_title_container}
                             type="submit" value={popupState === PopupState.ADD ? 'Add Task' : 'Edit Task'} />
                     </form>
-                    {!!getHistory().length && (
-                        <h3>History</h3>
-                    )}
-                    {
+                    <div className={styles.historyContainer}>
+                        {!!getHistory().length && (
+                            <h3>History</h3>
+                        )}
+                        {
 
-                        getHistory().map((item, index, array) => {
-                            let text = '';
-                            if (index === 0) {
-                                text = `Created With Value ${item.name}`;
-                            }
-                            else if (item.name !== array[index - 1].name) {
-                                text = `Edited From ${array[index - 1].name} to ${item.name}`;
-                            }
-                            else {
-                                text = `Moved From ${MOVEMENT_HISTORY[array[index - 1].currentTaskList]} to ${MOVEMENT_HISTORY[item.currentTaskList]}`;
-                            }
-                            return (
-                                <h3>{text}</h3>
-                            )
-                        })
-                    }
+                            getHistory().map((item, index, array) => {
+                                let text = '';
+                                if (index === 0) {
+                                    text = `Created With Value ${item.name}`;
+                                }
+                                else if (item.name !== array[index - 1].name) {
+                                    text = `Edited From ${array[index - 1].name} to ${item.name}`;
+                                }
+                                else {
+                                    text = `Moved From ${MOVEMENT_HISTORY[array[index - 1].currentTaskList]} to ${MOVEMENT_HISTORY[item.currentTaskList]}`;
+                                }
+                                return (
+                                    <h3>{text}</h3>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             </div>
             <IconButton

@@ -1,5 +1,5 @@
 import { DraggableTask } from './../../components/DraggableTask/index';
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Task,
   taskFactory,
@@ -9,16 +9,10 @@ import {
   serializeTasks,
   deserializeTasks,
 } from '../../data/data';
-import { Droppable, Draggable, DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 import styles from './styles.module.css';
-import { images } from '../../assets/images/images';
-import { IconButton } from '../../components/IconButton';
 import { DroppableTaskList } from '../../components/DroppableTaskList';
 import { Popup, PopupState } from '../../components/Popup';
-
-
-
-
 
 const getTasksInColumn = (tasks: Task[], column: TaskListTypes): Task[] => {
   return tasks.filter((task) => task.getCurrentValue().currentTaskList === column);
@@ -109,12 +103,8 @@ export const HomeScreen: React.FC = () => {
         const tasksCopy = tasks.slice(0);
         const task = tasksCopy.find((task) => task.id.toString() === draggableId);
         if (!task) return;
-        task.move(Number(destination.droppableId));
-        const sourceIndex = tasksCopy.indexOf(task);
-        const targetTask = taskLists[destination.droppableId as unknown as TaskListTypes][destination.index];
-        tasksCopy.splice(sourceIndex, 1);
-        const destIndex = tasksCopy.indexOf(targetTask);
-        tasksCopy.splice(sourceIndex > destIndex ? destIndex : destIndex + 1, 0, task);
+        const targetTaskListType: TaskListTypes = Number(destination.droppableId);
+        task.move(targetTaskListType);
         setTasks(tasksCopy);
       }}
     >
