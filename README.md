@@ -14,3 +14,7 @@
     ```
     npm test
     ```
+- Run E2E tests
+    ```
+    npm run cypress:open
+    ```
