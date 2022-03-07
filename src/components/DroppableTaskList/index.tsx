@@ -43,6 +43,7 @@ export const DroppableTaskList: React.FC<DroppableTaskListProps> = (props) => {
               Number(taskListType) === TaskListTypes.TODO && (
                 <div className={styles.task_title}>
                   <button
+                    data-testid="add-task-btn"
                     onClick={onAddTask}
                     className={styles.button_style}
                   >

@@ -118,9 +118,9 @@ export const HomeScreen: React.FC = () => {
               onAddTask={() => setOpenPopup(PopupState.ADD)}
               key={key}
             >
-              <div className={styles.draggable_container} >
+              <div data-testid={`droppable-${key}`} className={styles.draggable_container} >
                 {taskLists[key].map((task, index) => (
-                  <DraggableTask task={task} taskListType={key} index={index} onEdit={onEdit} onRemove={onRemove} />
+                  <DraggableTask data-testid={`draggable-${task.id}`} task={task} taskListType={key} index={index} onEdit={onEdit} onRemove={onRemove} />
                 ))}
               </div>
             </DroppableTaskList>

@@ -31,7 +31,7 @@ export const Popup: React.FC<PopupProps> = (props) => {
 
   if (popupState === PopupState.NONE) return null;
   return (
-    <div className={styles.popup_container}>
+    <div data-testid="edit-popup" className={styles.popup_container}>
       <div className={styles.overlay_container}>
         <div className={styles.overlay_style}>
           <h3 className={styles.add_edit_title}>
@@ -43,10 +43,12 @@ export const Popup: React.FC<PopupProps> = (props) => {
           }}>
             <div className={styles.text_input_container}>
               <input
+                data-testid="value-input"
                 className={styles.textInputStyle}
                 type="text" value={value} onChange={(e) => onValueChange(e.target.value)} />
             </div>
             <input
+              data-testid="form-submit"
               disabled={value.length ? false : true}
               className={styles.add_edit_title_container}
               type="submit" value={popupState === PopupState.ADD ? 'Add Task' : 'Edit Task'} />
@@ -77,6 +79,7 @@ export const Popup: React.FC<PopupProps> = (props) => {
         </div>
       </div>
       <IconButton
+        data-testid="close-popup"
         onClick={closePopup}
         buttonProps={{
           style: {
