@@ -1,0 +1,46 @@
+.list_title_container {
+    min-width: 120px;
+    height: fit-content;
+    padding: 16px;
+    border-radius: 4px;
+    margin: 8px;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+  }
+  .task_title_container {
+    flex: 1;
+  }
+  .task_title {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+  }
+  .add_icon {
+    width: 16px;
+    height: 16px;
+  }
+  .button_style {
+    border-width: 0;
+    background-color: transparent;
+  }
+  .add_card_title {
+    color: #778CA2;
+    cursor: pointer;
+  }
+  .card_container {
+    background-color: var(--background);
+    width: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 600px;
+    padding: 10px;
+    border-radius: 20px;
+  }
+  .card_container::-webkit-scrollbar {
+    display: none;
+  }
+  .card_container {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  }

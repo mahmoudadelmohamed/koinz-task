@@ -13,6 +13,7 @@ import { Droppable, Draggable, DragDropContext } from "react-beautiful-dnd";
 import styles from './styles.module.css';
 import { images } from '../../assets/images/images';
 import { IconButton } from '../../components/IconButton';
+import { DroppableTaskList } from '../../components/DroppableTaskList';
 
 export enum PopupState {
   NONE,
@@ -25,18 +26,7 @@ const MOVEMENT_HISTORY = {
   [TaskListTypes.DONE]: 'DONE',
 }
 
-const TITLE_BACKGROUND = {
-  [TaskListTypes.TODO]: {
-    background: 'linear-gradient(0deg, rgba(77, 124, 254, 0.08), rgba(77, 124, 254, 0.08)), #FFFFFF',
-  },
-  [TaskListTypes.PROGRESS]: {
-    background: 'linear-gradient(0deg, rgba(255, 171, 43, 0.08), rgba(255, 171, 43, 0.08)), #FFFFFF',
 
-  },
-  [TaskListTypes.DONE]: {
-    background: 'linear-gradient(0deg, rgba(109, 210, 48, 0.08), rgba(109, 210, 48, 0.08)), #FFFFFF',
-  },
-}
 const getTasksInColumn = (tasks: Task[], column: TaskListTypes): Task[] => {
   return tasks.filter((task) => task.getCurrentValue().currentTaskList === column);
 }
@@ -138,49 +128,17 @@ export const HomeScreen: React.FC = () => {
       <div className={styles.container}>
         {
           (Object.entries((TASK_LISTS)) as unknown as [TaskListTypes, TaskList][]).map(([key, item]) => (
-            <Droppable
-              droppableId={key.toString()}
-              key={key}
+            <DroppableTaskList
+              taskList={item}
+              taskListType={key}
+              onAddTask={() => setOpenPopup(PopupState.ADD)}
             >
-              {(provided) => (
-                <div>
-                  <div className={styles.list_title_container} style={TITLE_BACKGROUND[key]}>
-                    <div className={styles.task_title_container}>
-                      <h5>{item.title}</h5>
-                    </div>
-                    {
-                      Number(key) === TaskListTypes.TODO && (
-                        <div className={styles.task_title}>
-                          <img src={images.plusIcon}
-                            className={styles.add_icon}
-                          />
-                          <button
-                            onClick={() => setOpenPopup(PopupState.ADD)}
-                            className={styles.button_style}
-                          >
-                            <h3 className={styles.add_card_title}>
-                              ADD CARD
-                            </h3>
-                          </button>
-                        </div>
-                      )
-                    }
-                  </div>
-                  <div
-                    className={styles.card_container}
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    <div className={styles.draggable_container} >
-                      {taskLists[key].map((task, index) => (
-                        <DraggableTask task={task} taskListType={key} index={index} onEdit={onEdit} onRemove={onRemove}  />
-                      ))}
-                    </div>
-                    {provided.placeholder}
-                  </div>
-                </div>
-              )}
-            </Droppable>
+              <div className={styles.draggable_container} >
+                {taskLists[key].map((task, index) => (
+                  <DraggableTask task={task} taskListType={key} index={index} onEdit={onEdit} onRemove={onRemove} />
+                ))}
+              </div>
+            </DroppableTaskList>
 
           ))
         }
