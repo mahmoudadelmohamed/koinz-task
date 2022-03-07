@@ -12,7 +12,8 @@ import {
 import { DragDropContext } from "react-beautiful-dnd";
 import styles from './styles.module.css';
 import { DroppableTaskList } from '../../components/DroppableTaskList';
-import { Popup, PopupState } from '../../components/Popup';
+import { Popup, } from '../../components/Popup';
+import { PopupState } from '../../components/Popup/types';
 
 const getTasksInColumn = (tasks: Task[], column: TaskListTypes): Task[] => {
   return tasks.filter((task) => task.getCurrentValue().currentTaskList === column);
