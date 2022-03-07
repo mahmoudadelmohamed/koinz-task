@@ -1,0 +1,50 @@
+.popup_container {
+    background-color: rgba(0,0,0,0.6);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .overlay_container {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    background-color: #FFFFFF;
+  }
+  .overlay_style {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+  }
+  .add_edit_title {
+    color: #4D7CFE;
+  }
+  .text_input_container {
+    width: 100%;
+  }
+  .add_edit_title_container {
+    background: linear-gradient(0deg, rgba(77, 124, 254, 0.08), rgba(77, 124, 254, 0.08)), #FFFFFF;
+    padding: 14px 48px;
+    border-radius: 8px;
+    margin-top: 16px;
+  }
+  
+  
+  
+  .textInputStyle {
+    width: 50%;
+    padding: 16px 0 16px 10px;
+    border-radius: 8px;
+    border: 2px solid rgb(119, 140, 162);
+  }
+  .textInputStyle:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .icon_style {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }

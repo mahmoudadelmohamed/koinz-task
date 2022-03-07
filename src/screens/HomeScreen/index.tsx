@@ -14,17 +14,10 @@ import styles from './styles.module.css';
 import { images } from '../../assets/images/images';
 import { IconButton } from '../../components/IconButton';
 import { DroppableTaskList } from '../../components/DroppableTaskList';
+import { Popup, PopupState } from '../../components/Popup';
 
-export enum PopupState {
-  NONE,
-  EDIT,
-  ADD,
-}
-const MOVEMENT_HISTORY = {
-  [TaskListTypes.TODO]: 'ToDo',
-  [TaskListTypes.PROGRESS]: 'Progress',
-  [TaskListTypes.DONE]: 'DONE',
-}
+
+
 
 
 const getTasksInColumn = (tasks: Task[], column: TaskListTypes): Task[] => {
@@ -66,7 +59,7 @@ export const HomeScreen: React.FC = () => {
     let updateTasks = tasks.filter((task) => id !== task.id);
     setTasks(updateTasks);
   }
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = () => {
     if (openPopup === PopupState.ADD) {
       addTask();
     }
@@ -74,10 +67,9 @@ export const HomeScreen: React.FC = () => {
       editTask();
       setOpenPopup(PopupState.NONE)
     }
-    event.preventDefault();
   }
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  const handleChange = (value: string) => {
+    setValue(value);
   }
   const getHistory = () => {
     let updateTasks = tasks.find((task) => selectedTask === task.id);
@@ -89,6 +81,7 @@ export const HomeScreen: React.FC = () => {
   const handleClose = () => {
     setOpenPopup(PopupState.NONE);
     setValue('');
+    setSelectedTask('');
   }
   const onEdit = (task: Task) => {
     setValue(task.getCurrentValue().name);
@@ -142,60 +135,14 @@ export const HomeScreen: React.FC = () => {
 
           ))
         }
-        {openPopup !== PopupState.NONE && (
-          <div className={styles.popup_container}>
-            <div className={styles.overlay_container}>
-              <div className={styles.overlay_style}>
-                <h3 className={styles.add_edit_title}>
-                  {openPopup === PopupState.ADD ? 'Add Your Task' : 'Edit Your Task'}
-                </h3>
-                <form onSubmit={(e) => handleSubmit(e)}>
-                  <div className={styles.text_input_container}>
-                    <input
-                      className={styles.textInputStyle}
-                      type="text" value={value} onChange={handleChange} />
-                  </div>
-                  <input
-                    disabled={value.length ? false : true}
-                    className={styles.add_edit_title_container}
-                    type="submit" value={openPopup === PopupState.ADD ? 'Add Task' : 'Edit Task'} />
-                </form>
-                <h3>History</h3>
-                {
-
-                  getHistory().map((item, index, array) => {
-                    let text = '';
-                    if (index === 0) {
-                      text = `Created With Value ${item.name}`;
-                    }
-                    else if (item.name !== array[index - 1].name) {
-                      text = `Edited From ${array[index - 1].name} to ${item.name}`;
-                    }
-                    else {
-                      text = `Moved From ${MOVEMENT_HISTORY[array[index - 1].currentTaskList]} to ${MOVEMENT_HISTORY[item.currentTaskList]}`;
-                    }
-                    return (
-                      <h3>{text}</h3>
-                    )
-                  })
-                }
-              </div>
-            </div>
-            <IconButton
-              onClick={handleClose}
-              buttonProps={{
-                style: {
-                  margin: 16,
-                }
-              }}
-            >
-              <img
-                src={images.closeIcon}
-                className={styles.icon_style}
-              />
-            </IconButton>
-          </div>
-        )}
+        <Popup
+          closePopup={handleClose}
+          getHistory={getHistory}
+          onSubmit={handleSubmit}
+          onValueChange={handleChange}
+          popupState={openPopup}
+          value={value}
+        />
       </div>
     </DragDropContext>
   )
