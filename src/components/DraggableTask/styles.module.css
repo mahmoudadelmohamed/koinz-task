@@ -1,20 +1,20 @@
 .card {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex: 1;
-    width: '100%';
-    padding: 8px;
-    margin: 8px;
-    border: 1px solid#F2F4F6;
-    border-radius: 4px;
-    border-bottom-width: 4px;
-    background-color: #FFFFFF;
-    min-height: 96px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  width: '100%';
+  padding: 8px;
+  margin: 8px;
+  border: 1px solid#F2F4F6;
+  border-radius: 4px;
+  border-bottom-width: 4px;
+  background-color: #FFFFFF;
+  min-height: 96px;
 }
 .edit_icon_container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }

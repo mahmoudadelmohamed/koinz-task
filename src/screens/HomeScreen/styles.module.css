@@ -11,8 +11,6 @@ body {
   justify-content: space-around;
   height: 100vh;
 }
-
-
 .draggable_container{
   min-height: 150px;
 }
@@ -21,8 +19,6 @@ body {
   height: 20px;
   cursor: pointer;
 }
-
-
 h5 {
   line-height: 24px;
   font-weight: 400;
