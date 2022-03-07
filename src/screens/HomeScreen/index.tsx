@@ -9,11 +9,14 @@ import {
   serializeTasks,
   deserializeTasks,
 } from '../../data/data';
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DraggableLocation } from "react-beautiful-dnd";
 import styles from './styles.module.css';
 import { DroppableTaskList } from '../../components/DroppableTaskList';
 import { Popup, } from '../../components/Popup';
 import { PopupState } from '../../components/Popup/types';
+import {
+  checkDestination,
+} from './utils';
 
 const getTasksInColumn = (tasks: Task[], column: TaskListTypes): Task[] => {
   return tasks.filter((task) => task.getCurrentValue().currentTaskList === column);
@@ -95,12 +98,9 @@ export const HomeScreen: React.FC = () => {
           destination,
           draggableId,
         } = result;
-
-        if (source.droppableId === TaskListTypes.DONE.toString()) return;
-        if (source.droppableId === TaskListTypes.TODO.toString()
-          && destination.droppableId !== TaskListTypes.PROGRESS.toString()) return;
-
-        if (source.droppableId === destination.droppableId && source.index === destination.index) return;
+        if (!checkDestination(source, destination)) {
+          return;
+        }
         const tasksCopy = tasks.slice(0);
         const task = tasksCopy.find((task) => task.id.toString() === draggableId);
         if (!task) return;
@@ -116,6 +116,7 @@ export const HomeScreen: React.FC = () => {
               taskList={item}
               taskListType={key}
               onAddTask={() => setOpenPopup(PopupState.ADD)}
+              key={key}
             >
               <div className={styles.draggable_container} >
                 {taskLists[key].map((task, index) => (
